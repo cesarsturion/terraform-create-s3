@@ -27,11 +27,6 @@ jobs:
         echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
         echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
 
-    # The triggered workflow receives the inputs
-    - name: "Inputs - Bucket Name "
-      run: |
-        echo "Bucket Name: ${{ github.event.inputs.bucketName }}"
-
     # Downloads a specific version of Terraform CLI and adds it to PATH
     # Marketplace: https://github.com/marketplace/actions/hashicorp-setup-terraform
     - name: HashiCorp - Setup Terraform
@@ -48,3 +43,6 @@ jobs:
     - name: "Run - Terraform Plan"
       id: plan
       run: terraform plan -var="bucket_name=${{ github.event.inputs.bucketName }}" -input=false -no-color
+
+    - name: Terraform Apply
+      run: terraform apply -var="bucket_name=${{ github.event.inputs.bucketName }}" -auto-approve      
