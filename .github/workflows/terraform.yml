@@ -29,7 +29,7 @@ jobs:
 
     # The triggered workflow receives the inputs
     - name: "Inputs - Bucket Name "
-    - run: |
+      run: |
         echo "Bucket Name: ${{ github.event.inputs.bucketName }}"
 
     # Downloads a specific version of Terraform CLI and adds it to PATH
